@@ -6,9 +6,10 @@ print("we out")
 device = 0 if torch.cuda.is_available() else "cpu"
 if device == 0:
     torch.cuda.set_device(0)
-
+print(device)
 # Load a model
 model = YOLO('yolov8n-pose.pt', device)  # load an official model
+model.to("cuda")
 print(model.device.type)
 
 results = model(0, show=True, save=False, conf=.5)
