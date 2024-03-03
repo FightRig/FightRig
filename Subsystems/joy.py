@@ -1,0 +1,63 @@
+import RPi.GPIO as GPIO
+import threading
+
+
+class Joy(object):
+    """This is the first iteration of the bag movement code. This will read from a wireless xbox controller. Just to see how we can move the joystick."""
+
+    def __init__(self, controller, en, in1, in2) -> None:
+        self.controller = controller
+        self.en = en
+        self.in1 = in1
+        self.in2 = in2
+
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(in1, GPIO.OUT)
+        GPIO.setup(in2, GPIO.OUT)
+        GPIO.setup(en, GPIO.OUT)
+        GPIO.output(in1,GPIO.LOW)
+        GPIO.output(in2,GPIO.LOW)
+        self.p=GPIO.PWM(en,1000)
+
+        self._monitor_thread = threading.Thread(target=self._monitor_, args=())
+        self._monitor_thread.daemon = True
+        self._monitor_thread.start()
+        print("ENGINE INITIALIZED".center(50, "-"))
+
+    def _monitor_(self):
+        self.p.start(0)
+        while 1:
+            values = self.controller.read()
+
+            if values["y"]:
+                self.p.stop()
+                GPIO.cleanup()
+                print("GPIO Clean up")
+                break
+
+            movement = values["movement"]
+            self.p.ChangeDutyCycle(abs(movement) * 100)
+            if movement > 0:
+                GPIO.output(self.in1,GPIO.HIGH)
+                GPIO.output(self.in2,GPIO.LOW)
+            elif movement < 0:
+                GPIO.output(self.in1,GPIO.LOW)
+                GPIO.output(self.in2,GPIO.HIGH)
+            else:
+                GPIO.output(self.in1,GPIO.LOW)
+                GPIO.output(self.in2,GPIO.LOW)   
+
+
+if __name__ == "__main__":
+    import signal
+    from baseinputs import Controller
+    import signal
+    xboxWireless = Controller()
+    en = 17
+    in1 = 27
+    in2 = 22
+    GPIO.setwarnings(False)    
+    e = Joy(xboxWireless, en, in1, in2)
+    while e._monitor_thread.is_alive():
+        pass
+    
