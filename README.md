@@ -29,7 +29,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/FightRig/FightRig">
-    <img src="images/body.png" alt="Logo">
+    <img src="images/logo.png" alt="Logo">
   </a>
 
 <h3 align="center">Fight Rig</h3>
