@@ -147,7 +147,7 @@ torchvision==0.17.1+cu121
 git clone https://github.com/FightRig/FightRig.git
 ```
 
-2. Ensure you have the correct wiring. The wiring diagram looks like this.![Alt text](<images/octane7 diagram.png>) (You can power the pi with a battery pack). MAKE SURE TO REMOVE THE 5V enable jumper. WE ARE POWERING THIS WITH 24V, so take this out first.
+2. Ensure you have the correct wiring. The wiring diagram looks like this.![Alt text](<images/wiringdiag.png>) (You can power the pi with a battery pack). MAKE SURE TO REMOVE THE 5V enable jumper. WE ARE POWERING THIS WITH 24V, so take this out first.
 
 3. SSH into the raspberry pi with 
 ```sh
