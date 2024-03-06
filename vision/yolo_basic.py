@@ -12,7 +12,7 @@ model = YOLO('yolov8n-pose.pt', device)  # load an official model
 model.to("cuda")
 print(model.device.type)
 
-results = model(0, show=True, save=False, conf=.5)
+results = model(0, show=True, save=True, conf=.5)
 print(model.device.type)
 for result in results:
     boxes = result.boxes  # Boxes object for bbox outputs
