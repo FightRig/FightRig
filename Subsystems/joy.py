@@ -1,16 +1,14 @@
 import RPi.GPIO as GPIO
 import threading
 
-
 class Joy(object):
     """This is the first iteration of the bag movement code. This will read from a wireless xbox controller. Just to see how we can move the joystick."""
-
     def __init__(self, controller, en, in1, in2) -> None:
         self.controller = controller
         self.en = en
         self.in1 = in1
         self.in2 = in2
-
+        
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(in1, GPIO.OUT)
         GPIO.setup(in2, GPIO.OUT)
@@ -35,7 +33,7 @@ class Joy(object):
                 print("GPIO Clean up")
                 break
 
-            movement = values["movement"]
+            movement = values["sx"]
             self.p.ChangeDutyCycle(abs(movement) * 100)
             if movement > 0:
                 GPIO.output(self.in1,GPIO.HIGH)

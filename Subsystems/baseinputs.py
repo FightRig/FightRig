@@ -48,10 +48,10 @@ class Controller(object):
                 if event.type == pygame.JOYAXISMOTION:
                     if event.axis == 5:
                         # Left trigger
-                        self.input_data["RightTrigger"] = (round(event.value) + 1) / 2
+                        self.input_data["RightTrigger"] = (round(event.value, 3) + 1) / 2
                     elif event.axis == 2:
                         # Right trigger
-                        self.input_data["LeftTrigger"] = (round(event.value) + 1) / 2
+                        self.input_data["LeftTrigger"] = (round(event.value, 3) + 1) / 2
                     else:
                         self.input_data[mappings[f"axis{event.axis}"]] = round(event.value, 4)
                 elif event.type == pygame.JOYBUTTONDOWN:

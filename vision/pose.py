@@ -6,16 +6,12 @@ import torch
 import sys
 print("we out")
 
-
 def main(model, headless =False,):
-    # Open a connection to the webcam (change the index if you have multiple cameras)
     cap = waitForCam(0)
     prev_time = datetime.now().timestamp()
     framecount = 0  
     while True:
         success, frame = cap.read()
-        
-
 
         # Perform inference on the frame
         results = model(frame, show=True)  
@@ -50,17 +46,12 @@ def main(model, headless =False,):
 
 if __name__ == "__main__":
     headless = "-h" in sys.argv
-
-
     device = 0 if torch.cuda.is_available() else "cpu"
     if device == 0:
         torch.cuda.set_device(0)
-
     model = YOLO('yolov8n-pose.pt')
     model.to("cuda")
     print("Model loaded. Using deivce: ", model.device.type)
-
-
     main(model, headless)
 
 
