@@ -1,4 +1,5 @@
-
+import RPi.GPIO as GPIO
+import time
 
 class SPX:
     """INSTANCE OF VICTOR SPX"""
@@ -16,6 +17,10 @@ class SPX:
         self.pwm_high.start(0)  # Start PWM with 0% duty cycle
         self.pwm_low.start(0)   # Start PWM with 0% duty cycle
 
+        self.current_duty = 0.0
+        self.target_duty = 0.0
+        self.acceleration = 10.0  # Acceleration rate per second (adjust as needed)
+
     def set_pwm_pulse(self, pulse_width_ms):
         # Ensure pulse width is within the range of 1-2ms
         pulse_width_ms = max(min(pulse_width_ms, 2.0), 1.0)
@@ -30,14 +35,21 @@ class SPX:
     
     def setDuty(self, percent):
         print(percent)
-        self.pwm_high.ChangeDutyCycle(percent)
-        self.pwm_low.ChangeDutyCycle(100.0 - percent)
-    
+        # Clamp acceleration
+        target_duty = max(min(percent, 100.0), 0.0)
+        acceleration = self.acceleration * (time.time() - self.last_update)
+        self.current_duty += acceleration
+        self.current_duty = max(min(self.current_duty, 100.0), 0.0)
+
+        # Update PWM
+        self.pwm_high.ChangeDutyCycle(self.current_duty)
+        self.pwm_low.ChangeDutyCycle(100.0 - self.current_duty)
+        self.last_update = time.time()
 
 if __name__ == "__main__":
     from baseinputs import Controller
     import RPi.GPIO as GPIO
-    import time
+
     pwm_high_pin = 4
     pwm_low_pin = 5
     
@@ -46,15 +58,16 @@ if __name__ == "__main__":
     controller = Controller()
 
     try:
-        while 1:
+        while True:
             values = controller.read()
 
             if values["y"]:
                 print("GPIO Clean up")
                 break
 
-            movement = values["RightTrigger"]
-            motor.setDuty(movement * 100)
+            movement = values["RightTrigger"] * 100
+            motor.setDuty(movement)
+            time.sleep(0.1)  # Sleep to avoid continuous updates (adjust as needed)
 
     finally:
         # Clean up GPIO on exit
