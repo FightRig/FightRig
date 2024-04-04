@@ -28,6 +28,10 @@ class SPX:
         self.pwm_high.ChangeDutyCycle(duty_cycle)
         self.pwm_low.ChangeDutyCycle(100.0 - duty_cycle)  # Inverse duty cycle for low
     
+    def setDuty(self, percent):
+        self.pwm_high.ChangeDutyCycle(percent)
+        self.pwm_low.ChangeDutyCycle(100.0 - percent)
+    
 
 if __name__ == "__main__":
     import RPi.GPIO as GPIO
@@ -40,15 +44,15 @@ if __name__ == "__main__":
 
     try:
         # Example usage: Set pulse width to 1.5ms (neutral position)
-        motor.set_pwm_pulse(.15)
+        motor.setDuty(5)
         time.sleep(2)  # Wait for 2 seconds
 
         # Example usage: Set pulse width to 1ms (move in one direction)
-        motor.set_pwm_pulse(.15)
+        motor.setDuty(10)
         time.sleep(2)  # Wait for 2 seconds
 
         # Example usage: Set pulse width to 2ms (move in the opposite direction)
-        motor.set_pwm_pulse(.15)
+        motor.setDuty(50)
         time.sleep(2)  # Wait for 2 seconds
 
     finally:
