@@ -46,9 +46,6 @@ if __name__ == "__main__":
     controller = Controller()
 
     try:
-        v1 = SPX(4, 5)
-        controller = Controller()
-
         while 1:
             values = controller
 
@@ -57,7 +54,7 @@ if __name__ == "__main__":
                 break
 
             movement = values["movement"]
-            v1.setDuty(movement * 100)
+            motor.setDuty(movement * 100)
 
     finally:
         # Clean up GPIO on exit
