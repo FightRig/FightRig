@@ -4,8 +4,8 @@ import pygame
 import threading
 
 mappings = {
-    "button5":"right_trigger",
-    "button4":"left_trigger",
+    "button5":"RightTrigger",
+    "button4":"LeftTrigger",
     "axis6":"movement",
     "axis0":"sx",
     "axis1":"sy",

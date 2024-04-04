@@ -48,7 +48,6 @@ if __name__ == "__main__":
     try:
         while 1:
             values = controller.read()
-            print(values)
 
             if values["y"]:
                 print("GPIO Clean up")
