@@ -35,6 +35,7 @@ class SPX:
     
 
 if __name__ == "__main__":
+    from baseinputs import Controller
     import RPi.GPIO as GPIO
     import time
     pwm_high_pin = 4
@@ -42,19 +43,21 @@ if __name__ == "__main__":
     
     # Initialize motor controller
     motor = SPX(pwm_high_pin, pwm_low_pin)
+    controller = Controller()
 
     try:
-        # Example usage: Set pulse width to 1.5ms (neutral position)
-        motor.setDuty(5)
-        time.sleep(2)  # Wait for 2 seconds
+        v1 = SPX(4, 5)
+        controller = Controller()
 
-        # Example usage: Set pulse width to 1ms (move in one direction)
-        motor.setDuty(10)
-        time.sleep(2)  # Wait for 2 seconds
+        while 1:
+            values = controller
 
-        # Example usage: Set pulse width to 2ms (move in the opposite direction)
-        motor.setDuty(100)
-        time.sleep(2)  # Wait for 2 seconds
+            if values["y"]:
+                print("GPIO Clean up")
+                break
+
+            movement = values["movement"]
+            v1.setDuty(movement * 100)
 
     finally:
         # Clean up GPIO on exit
