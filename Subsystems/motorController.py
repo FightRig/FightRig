@@ -38,15 +38,15 @@ if __name__ == "__main__":
 
     try:
         # Example usage: Set pulse width to 1.5ms (neutral position)
-        motor.set_pwm_pulse(1.5)
+        motor.set_pwm_pulse(.15)
         time.sleep(2)  # Wait for 2 seconds
 
         # Example usage: Set pulse width to 1ms (move in one direction)
-        motor.set_pwm_pulse(1.0)
+        motor.set_pwm_pulse(.15)
         time.sleep(2)  # Wait for 2 seconds
 
         # Example usage: Set pulse width to 2ms (move in the opposite direction)
-        motor.set_pwm_pulse(2.0)
+        motor.set_pwm_pulse(.15)
         time.sleep(2)  # Wait for 2 seconds
 
     finally:
