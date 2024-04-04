@@ -24,14 +24,16 @@ class SPX:
         duty_cycle = (pulse_width_ms - 1.0) / 1.0 * 100.0
         
         # Set duty cycle for both PWM signals
+        print(duty_cycle)
         self.pwm_high.ChangeDutyCycle(duty_cycle)
         self.pwm_low.ChangeDutyCycle(100.0 - duty_cycle)  # Inverse duty cycle for low
+    
 
 if __name__ == "__main__":
     import RPi.GPIO as GPIO
     import time
-    pwm_high_pin = 3
-    pwm_low_pin = 4
+    pwm_high_pin = 4
+    pwm_low_pin = 5
     
     # Initialize motor controller
     motor = SPX(pwm_high_pin, pwm_low_pin)
