@@ -2,7 +2,7 @@ import signal
 from baseinputs import Controller
 from testwithcontroller import SPX
 
-v1 = SPX()
+v1 = SPX(4, 5)
 controller = Controller()
 
 while 1:

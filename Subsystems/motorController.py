@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 import time
 
 class SPX:
+    """INSTANCE OF VICTOR SPX"""
     def __init__(self, pwm_high_pin, pwm_low_pin):
         self.pwm_high_pin = pwm_high_pin
         self.pwm_low_pin = pwm_low_pin
