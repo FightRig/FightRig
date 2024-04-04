@@ -45,7 +45,7 @@ class SPX:
         if target_duty > self.current_duty:
             self.current_duty = min(self.current_duty + acceleration, target_duty)
         elif target_duty < self.current_duty:
-            self.current_duty = min(self.current_duty - acceleration, target_duty)
+            self.current_duty = target_duty
 
         # Update PWM
         self.pwm_high.ChangeDutyCycle(self.current_duty)
