@@ -29,8 +29,8 @@ class SPX:
         self.pwm_low.ChangeDutyCycle(100.0 - duty_cycle)  # Inverse duty cycle for low
 
 if __name__ == "__main__":
-    pwm_high_pin = 17
-    pwm_low_pin = 18
+    pwm_high_pin = 4
+    pwm_low_pin = 5
     
     # Initialize motor controller
     motor = SPX(pwm_high_pin, pwm_low_pin)
