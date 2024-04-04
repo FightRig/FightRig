@@ -20,6 +20,7 @@ class SPX:
         self.current_duty = 0.0
         self.target_duty = 0.0
         self.acceleration = 10.0  # Acceleration rate per second (adjust as needed)
+        self.last_update = time.time()
 
     def set_pwm_pulse(self, pulse_width_ms):
         # Ensure pulse width is within the range of 1-2ms
