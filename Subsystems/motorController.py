@@ -29,6 +29,7 @@ class SPX:
         self.pwm_low.ChangeDutyCycle(100.0 - duty_cycle)  # Inverse duty cycle for low
     
     def setDuty(self, percent):
+        print(percent)
         self.pwm_high.ChangeDutyCycle(percent)
         self.pwm_low.ChangeDutyCycle(100.0 - percent)
     
@@ -52,7 +53,7 @@ if __name__ == "__main__":
         time.sleep(2)  # Wait for 2 seconds
 
         # Example usage: Set pulse width to 2ms (move in the opposite direction)
-        motor.setDuty(50)
+        motor.setDuty(5)
         time.sleep(2)  # Wait for 2 seconds
 
     finally:
