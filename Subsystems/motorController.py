@@ -53,7 +53,7 @@ if __name__ == "__main__":
         time.sleep(2)  # Wait for 2 seconds
 
         # Example usage: Set pulse width to 2ms (move in the opposite direction)
-        motor.setDuty(5)
+        motor.setDuty(100)
         time.sleep(2)  # Wait for 2 seconds
 
     finally:
