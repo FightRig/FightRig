@@ -34,18 +34,24 @@ class SPX:
         self.pwm_high.ChangeDutyCycle(duty_cycle)
         self.pwm_low.ChangeDutyCycle(100.0 - duty_cycle)  # Inverse duty cycle for low
     
-    def setDuty(self, percent):
-        print(percent)
-        # Clamp acceleration
-        target_duty = max(min(percent, 100.0), 0.0)
+    def setDuty(self, target_duty):
+        # Clamp target duty cycle
+        target_duty = max(min(target_duty, 100.0), 0.0)
+
+        # Calculate acceleration
         acceleration = self.acceleration * (time.time() - self.last_update)
-        self.current_duty += acceleration
-        self.current_duty = max(min(self.current_duty, 100.0), 0.0)
+
+        # Adjust current duty towards target duty with acceleration
+        if target_duty > self.current_duty:
+            self.current_duty = min(self.current_duty + acceleration, target_duty)
+        elif target_duty < self.current_duty:
+            self.current_duty = max(self.current_duty - acceleration, target_duty)
 
         # Update PWM
         self.pwm_high.ChangeDutyCycle(self.current_duty)
         self.pwm_low.ChangeDutyCycle(100.0 - self.current_duty)
         self.last_update = time.time()
+
 
 if __name__ == "__main__":
     from baseinputs import Controller
