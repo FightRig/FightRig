@@ -39,9 +39,11 @@ class TalonSRX:
         acceleration = self.acceleration * (time.time() - self.last_update)
 
         # Adjust current duty towards target duty with acceleration
-        if target_duty > self.current_duty:
+        if  target_duty > self.current_duty:
             self.current_duty = min(self.current_duty + acceleration, target_duty)
-        elif target_duty < self.current_duty:
+        elif  target_duty < self.current_duty:
+            self.current_duty = max(self.current_duty - acceleration, target_duty)
+        else:
             self.current_duty = target_duty
         
         # Set duty cycle for PWM signal
