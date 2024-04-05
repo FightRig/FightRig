@@ -20,20 +20,12 @@ class TalonSRX:
         self.pwm_high.start(0)  # Start PWM with 0% duty cycle
         self.pwm_low.start(0)   # Start PWM with 0% duty cycle
 
+        self.last_update = time.time()
+        self.acceleration = 5.0  # Acceleration rate per second (adjust as needed)
+        self.current_duty = .9
+
+
     def set_pwm_pulse(self, pulse_width_ms):
-
-        
-        if pulse_width_ms > 0:
-            GPIO.output(self.pwm_high_pin, GPIO.HIGH)
-            GPIO.output(self.pwm_low_pin, GPIO.LOW)
-        elif pulse_width_ms < 0:
-            GPIO.output(self.pwm_high_pin, GPIO.LOW)
-            GPIO.output(self.pwm_low_pin, GPIO.HIGH)
-        else:
-            GPIO.output(self.pwm_high_pin, GPIO.LOW)
-            GPIO.output(self.pwm_low_pin, GPIO.LOW)
-
-
         output_pulse_width_ms = abs(pulse_width_ms)
 
         # output_pulse_width_ms = max(min(output_pulse_width_ms, 2.4), 1.055)
@@ -42,24 +34,22 @@ class TalonSRX:
             output_pulse_width_ms = 0
         
         # Convert pulse width to duty cycle
-        duty_cycle = (output_pulse_width_ms) / 20* 100
+        target_duty = (output_pulse_width_ms) / 20* 100
+
+        acceleration = self.acceleration * (time.time() - self.last_update)
+
+        # Adjust current duty towards target duty with acceleration
+        if target_duty > self.current_duty:
+            self.current_duty = min(self.current_duty + acceleration, target_duty)
+        elif target_duty < self.current_duty:
+            self.current_duty = target_duty
         
         # Set duty cycle for PWM signal
-        print("DUTY CYCLE: " + str(duty_cycle))
+        print("DUTY CYCLE: " + str(self.current_duty) + "TARGET: " + str(target_duty))
+        self.pwm_high.ChangeDutyCycle(self.current_duty)
+        self.last_update = time.time()
 
 
-        self.pwm_high.ChangeDutyCycle(duty_cycle)
-
-        if pulse_width_ms > 0:
-            GPIO.output(self.pwm_high_pin, GPIO.HIGH)
-            GPIO.output(self.pwm_low_pin, GPIO.LOW)
-
-        elif pulse_width_ms < 0:
-            GPIO.output(self.pwm_high_pin, GPIO.LOW)
-            GPIO.output(self.pwm_low_pin, GPIO.HIGH)
-        else:
-            GPIO.output(self.pwm_high_pin, GPIO.LOW)
-            GPIO.output(self.pwm_low_pin, GPIO.LOW)
 
 if __name__ == "__main__":
     from baseinputs import Controller

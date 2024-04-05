@@ -18,7 +18,7 @@ class SPX:
         self.pwm_low.start(0)   # Start PWM with 0% duty cycle
 
         self.current_duty = 0.0
-        self.acceleration = 10.0  # Acceleration rate per second (adjust as needed)
+        self.acceleration = 5.0  # Acceleration rate per second (adjust as needed)
         self.last_update = time.time()
 
     def set_pwm_pulse(self, pulse_width_ms):
