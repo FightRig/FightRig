@@ -64,6 +64,9 @@ if __name__ == "__main__":
     motor = SPX(pwm_high_pin, pwm_low_pin)
     controller = Controller()
 
+    motor.setDuty(5)
+    time.sleep(4)
+
     try:
         while True:
             values = controller.read()
