@@ -13,7 +13,7 @@ class TalonSRX:
         GPIO.setup(self.pwm_pin, GPIO.OUT)
 
         # Initialize PWM with a frequency of 100 Hz (period of 10 ms)
-        self.pwm = GPIO.PWM(self.pwm_pin, 100)
+        self.pwm = GPIO.PWM(self.pwm_pin, 15625)
         self.pwm.start(0)  # Start PWM with 0% duty cycle
 
     def set_pwm_pulse(self, pulse_width_ms):
