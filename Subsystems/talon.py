@@ -21,6 +21,22 @@ class TalonSRX:
         self.pwm_low.start(0)   # Start PWM with 0% duty cycle
 
     def set_pwm_pulse(self, pulse_width_ms):
+
+
+        if pulse_width_ms > 0:
+            GPIO.output(self.pwm_high, GPIO.HIGH)
+            GPIO.output(self.pwm_low, GPIO.LOW)
+        elif pulse_width_ms < 0:
+            GPIO.output(self.pwm_high, GPIO.LOW)
+            GPIO.output(self.pwm_low, GPIO.HIGH)
+        else:
+            GPIO.output(self.pwm_high, GPIO.LOW)
+            GPIO.output(self.pwm_low, GPIO.LOW)
+
+
+
+
+
         # Ensure pulse width is within the range of 1-2 ms
         pulse_width_ms = max(min(pulse_width_ms, 2.4), 1.05)
 
