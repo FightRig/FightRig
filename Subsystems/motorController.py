@@ -73,6 +73,7 @@ if __name__ == "__main__":
                 break
 
             movement = values["RightTrigger"] * 100
+            print(movement)
             motor.setDuty(movement)
             time.sleep(0.1)  # Sleep to avoid continuous updates (adjust as needed)
 
