@@ -18,7 +18,6 @@ class SPX:
         self.pwm_low.start(0)   # Start PWM with 0% duty cycle
 
         self.current_duty = 0.0
-        self.target_duty = 0.0
         self.acceleration = 10.0  # Acceleration rate per second (adjust as needed)
         self.last_update = time.time()
 
@@ -65,7 +64,7 @@ if __name__ == "__main__":
     motor = SPX(pwm_high_pin, pwm_low_pin)
     controller = Controller()
 
-    motor.setDuty(5)
+    motor.setDuty(2)
     time.sleep(4)
 
     try:
