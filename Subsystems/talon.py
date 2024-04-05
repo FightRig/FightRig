@@ -13,7 +13,7 @@ class TalonSRX:
         GPIO.setup(self.pwm_pin, GPIO.OUT)
 
         # Initialize PWM with a frequency of 100 Hz (period of 10 ms)
-        self.pwm = GPIO.PWM(self.pwm_pin, 100)
+        self.pwm = GPIO.PWM(self.pwm_pin, 344)
         self.pwm.start(0)  # Start PWM with 0% duty cycle
 
     def set_pwm_pulse(self, pulse_width_ms):
@@ -30,7 +30,7 @@ class TalonSRX:
 if __name__ == "__main__":
     try:
         # Initialize Talon SRX motor controller on GPIO pin 4
-        talon_srx = TalonSRX(4)
+        talon_srx = TalonSRX(3)
 
         # Set PWM pulse width to 1.5 ms (neutral)
         talon_srx.set_pwm_pulse(1.5)
