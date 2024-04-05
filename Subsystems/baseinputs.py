@@ -24,7 +24,7 @@ mappings = {
 class Controller(object):
     """Class representing the PS4 controller. Pretty straightforward functionality."""
 
-    def __init__(self, deadzone = .1):
+    def __init__(self, deadzone = .05):
         """Initialize the joystick components"""
 
         self.input_data = {}
