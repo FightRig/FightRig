@@ -50,7 +50,7 @@ class SPX:
         # Update PWM
         self.pwm_high.ChangeDutyCycle(self.current_duty)
         self.pwm_low.ChangeDutyCycle(100.0 - self.current_duty)
-        print("DUTY CYCLE: " + int(self.current_duty))
+        print("DUTY CYCLE: " + str(self.current_duty))
         self.last_update = time.time()
 
 
