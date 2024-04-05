@@ -38,7 +38,7 @@ class TalonSRX:
 
         # output_pulse_width_ms = max(min(output_pulse_width_ms, 2.4), 1.055)
 
-        if output_pulse_width_ms == 2.4:
+        if output_pulse_width_ms == 2.9:
             output_pulse_width_ms = 0
         
         # Convert pulse width to duty cycle
@@ -82,7 +82,7 @@ if __name__ == "__main__":
             triggervalue = values["sx"]
             print("TRIGGER: " + str(triggervalue))
 
-            movement = 2.75 - (triggervalue * 1.7)
+            movement = 2.9 - (triggervalue * 1.85)
             # if triggervalue < 0:
             #     movement *= -1
 
