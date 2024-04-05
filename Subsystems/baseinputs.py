@@ -24,7 +24,7 @@ mappings = {
 class Controller(object):
     """Class representing the PS4 controller. Pretty straightforward functionality."""
 
-    def __init__(self):
+    def __init__(self, deadzone = .1):
         """Initialize the joystick components"""
 
         self.input_data = {}
@@ -35,6 +35,7 @@ class Controller(object):
         pygame.joystick.init()
         self.controller = pygame.joystick.Joystick(0)
         self.controller.init()
+        self.deadzone = deadzone
         
         self._monitor_thread = threading.Thread(target=self.listen, args=())
         self._monitor_thread.daemon = True
@@ -52,6 +53,11 @@ class Controller(object):
                     elif event.axis == 2:
                         # Right trigger
                         self.input_data["LeftTrigger"] = (round(event.value, 3) + 1) / 2
+                    elif event.axis in [0, 1, 2, 3, 4]:
+                        axis_value = round(event.value, 4)
+                        if abs(axis_value) < self.deadzone:
+                            axis_value = 0
+                        self.input_data[mappings[f"axis{event.axis}"]] = axis_value
                     else:
                         self.input_data[mappings[f"axis{event.axis}"]] = round(event.value, 4)
                 elif event.type == pygame.JOYBUTTONDOWN:
