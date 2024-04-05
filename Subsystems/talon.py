@@ -35,8 +35,7 @@ class TalonSRX:
         
         # Convert pulse width to duty cycle
         # Determine target duty cycle
-        if output_pulse_width_ms < 2.9:
-            target_duty = output_pulse_width_ms / 20 * 100  # Forward direction
+        target_duty = output_pulse_width_ms / 20 * 100  # Forward direction
 
 
         acceleration = self.acceleration * (time.time() - self.last_update)
