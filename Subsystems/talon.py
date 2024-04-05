@@ -68,12 +68,6 @@ if __name__ == "__main__":
     talon = TalonSRX(3, 4)
     controller = Controller()
 
-    talon.set_pwm_pulse(2.4)
-    time.sleep(2)
-    talon.set_pwm_pulse(.6)
-    time.sleep(2)
-    talon.set_pwm_pulse(5)
-    time.sleep(2)
 
 
     try:
@@ -88,7 +82,7 @@ if __name__ == "__main__":
             triggervalue = values["sx"]
             print("TRIGGER: " + str(triggervalue))
 
-            movement = 2.4 - (triggervalue * 1.34)
+            movement = 2.75 - (triggervalue * 1.7)
             # if triggervalue < 0:
             #     movement *= -1
 
