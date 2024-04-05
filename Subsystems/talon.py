@@ -30,8 +30,6 @@ class TalonSRX:
 
         # output_pulse_width_ms = max(min(output_pulse_width_ms, 2.4), 1.055)
 
-        # if output_pulse_width_ms == 2.9:
-        #     output_pulse_width_ms = 0
         
         # Convert pulse width to duty cycle
         # Determine target duty cycle
@@ -41,14 +39,17 @@ class TalonSRX:
         acceleration = self.acceleration * (time.time() - self.last_update)
 
         # Adjust current duty towards target duty with acceleration
-        if target_duty > self.current_duty:
-            self.current_duty = min(self.current_duty + acceleration, target_duty)
-        elif target_duty < self.current_duty:
-            self.current_duty = max(self.current_duty - acceleration, target_duty)
-        
-        # Set duty cycle for PWM signal
-        print("DUTY CYCLE: " + str(self.current_duty) + "TARGET: " + str(target_duty))
-        self.pwm_high.ChangeDutyCycle(self.current_duty)
+        if abs(target_duty - 14.49) < .3:
+            GPIO.output(self.pwm_high_pin, GPIO.LOW)
+        else:
+            if target_duty > self.current_duty:
+                self.current_duty = min(self.current_duty + acceleration, target_duty)
+            elif target_duty < self.current_duty:
+                self.current_duty = max(self.current_duty - acceleration, target_duty)
+            
+            # Set duty cycle for PWM signal
+            print("DUTY CYCLE: " + str(self.current_duty) + "TARGET: " + str(target_duty))
+            self.pwm_high.ChangeDutyCycle(self.current_duty)
         self.last_update = time.time()
 
 
