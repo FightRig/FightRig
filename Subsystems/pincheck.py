@@ -4,21 +4,21 @@ import time
 # Set GPIO mode to BCM
 GPIO.setmode(GPIO.BCM)
 
-# Set up GPIO pins 4 and 5 as output pins
-GPIO.setup(4, GPIO.OUT)
-GPIO.setup(5, GPIO.OUT)
+# Set up GPIO pins 17 and 27 as output pins
+GPIO.setup(17, GPIO.OUT)
+GPIO.setup(27, GPIO.OUT)
 
 try:
-    # Turn on GPIO pin 4
-    GPIO.output(4, GPIO.HIGH)
-    print("GPIO pin 4 is ON")
+    # Turn on GPIO pin 17
+    GPIO.output(17, GPIO.HIGH)
+    print("GPIO pin 17 is ON")
 
-    # Turn on GPIO pin 5
-    GPIO.output(5, GPIO.HIGH)
-    print("GPIO pin 5 is ON")
+    # Turn on GPIO pin 27
+    GPIO.output(27, GPIO.HIGH)
+    print("GPIO pin 27 is ON")
 
-    # Wait for 5 seconds
-    time.sleep(5)
+    # Wait for 27 seconds
+    time.sleep(27)
 
 finally:
     # Clean up GPIO
