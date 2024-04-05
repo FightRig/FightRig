@@ -49,6 +49,7 @@ class TalonSRX:
         # Set duty cycle for PWM signal
         print("DUTY CYCLE: " + str(duty_cycle))
         self.pwm_high.ChangeDutyCycle(duty_cycle)
+        self.pwm_low.ChangeDutyCycle(100 - duty_cycle)
 
 if __name__ == "__main__":
     from baseinputs import Controller
