@@ -13,48 +13,39 @@ class TalonSRX:
         GPIO.setup(self.pwm_pin, GPIO.OUT)
 
         # Initialize PWM with a frequency of 100 Hz (period of 10 ms)
-        self.pwm = GPIO.PWM(self.pwm_pin, 15625)
+        self.pwm = GPIO.PWM(self.pwm_pin, 100)
         self.pwm.start(0)  # Start PWM with 0% duty cycle
 
     def set_pwm_pulse(self, pulse_width_ms):
         # Ensure pulse width is within the range of 1-2 ms
         pulse_width_ms = max(min(pulse_width_ms, 2), 1)
         
-        # Calculate the period corresponding to the PWM frequency (1 / frequency)
-        period_ms = 1 / 15.625  # period in milliseconds
-        
         # Convert pulse width to duty cycle
-        duty_cycle = (pulse_width_ms / period_ms) * 100
+        duty_cycle = pulse_width_ms / 20 * 100
         
         # Set duty cycle for PWM signal
-        self.pwm.ChangeDutyCycle(duty_cycle)
         print("DUTY CYCLE: " + str(duty_cycle))
+        self.pwm.ChangeDutyCycle(duty_cycle)
 
 if __name__ == "__main__":
+    from baseinputs import Controller
+
+
+    talon = TalonSRX(3)
+    controller = Controller()
+
     try:
-        # Initialize Talon SRX motor controller on GPIO pin 4
-        talon_srx = TalonSRX(3)
+        while True:
+            values = controller.read()
 
-        # Set PWM pulse width to 1.5 ms (neutral)
-        talon_srx.set_pwm_pulse(1.5)
+            if values["y"]:
+                print("GPIO Clean up")
+                break
 
-        time.sleep(2)  # Wait for 2 seconds
-
-        # Set PWM pulse width to 1 ms (minimum throttle)
-        talon_srx.set_pwm_pulse(1)
-
-        time.sleep(2)  # Wait for 2 seconds
-
-        # Set PWM pulse width to 2 ms (maximum throttle)
-        talon_srx.set_pwm_pulse(1.9)
-
-        time.sleep(2)  # Wait for 2 seconds
-
-        talon_srx.set_pwm_pulse(1.999)
-        time.sleep(2)
-
-        talon_srx.set_pwm_pulse(1.1)
-        time.sleep(2)
+            movement = 1 + (values["RightTrigger"] * 1)
+            print(movement)
+            talon.set_pwm_pulse(movement)
+            time.sleep(0.1)  # Sleep to avoid continuous updates (adjust as needed)
 
     finally:
         # Clean up GPIO on exit
