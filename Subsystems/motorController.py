@@ -57,8 +57,8 @@ if __name__ == "__main__":
     from baseinputs import Controller
     import RPi.GPIO as GPIO
 
-    pwm_high_pin = 4
-    pwm_low_pin = 5
+    pwm_high_pin = 17
+    pwm_low_pin = 27
     
     # Initialize motor controller
     motor = SPX(pwm_high_pin, pwm_low_pin)
