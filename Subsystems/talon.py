@@ -51,7 +51,6 @@ class TalonSRX:
 
 
         self.pwm_high.ChangeDutyCycle(duty_cycle)
-        self.pwm_low.ChangeDutyCycle(100 - duty_cycle)
 
         if pulse_width_ms > 0:
             GPIO.output(self.pwm_high_pin, GPIO.HIGH)
@@ -83,9 +82,9 @@ if __name__ == "__main__":
             triggervalue = values["sx"]
             print("TRIGGER: " + str(triggervalue))
 
-            movement = 2.4 - (abs(triggervalue) * 1.34)
-            if triggervalue < 0:
-                movement *= -1
+            movement = 2.4 - (triggervalue * 1.34)
+            # if triggervalue < 0:
+            #     movement *= -1
 
             print("PULSE INPUT: " + str(movement))
             talon.set_pwm_pulse(movement)
