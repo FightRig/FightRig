@@ -38,7 +38,7 @@ class TalonSRX:
 
 
         # Ensure pulse width is within the range of 1-2 ms
-        pulse_width_ms = max(min(pulse_width_ms, 2.4), 1.05)
+        pulse_width_ms = max(min(pulse_width_ms, 2.4), 1.055)
 
         if pulse_width_ms == 2.4:
             pulse_width_ms = 0
@@ -65,8 +65,14 @@ if __name__ == "__main__":
                 print("GPIO Clean up")
                 break
             
-            print("TRIGGER: " + str(values["RightTrigger"]))
-            movement = 2.4 - (values["RightTrigger"] * 1.35)
+
+            triggervalue = values["RightTrigger"]
+            print("TRIGGER: " + str(triggervalue))
+
+            movement = 2.4 - (abs(triggervalue) * 1.34)
+            if triggervalue < 0:
+                movement *= -1
+
             print("PULSE INPUT: " + str(movement))
             talon.set_pwm_pulse(movement)
             time.sleep(0.2)  # Sleep to avoid continuous updates (adjust as needed)
