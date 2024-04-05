@@ -78,7 +78,7 @@ if __name__ == "__main__":
             triggervalue = values["sx"]
             print("TRIGGER: " + str(triggervalue))
 
-            movement = 2.9 - (triggervalue * 1.85)
+            movement = 2.9 - (triggervalue * 1.7)
             # if triggervalue < 0:
             #     movement *= -1
 
