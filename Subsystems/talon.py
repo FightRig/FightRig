@@ -21,7 +21,7 @@ class TalonSRX:
         pulse_width_ms = max(min(pulse_width_ms, 2.33), .67)
         
         # Convert pulse width to duty cycle
-        duty_cycle = ((pulse_width_ms - 0.67) / (2.33 - 0.67)) * 100
+        duty_cycle = (pulse_width_ms) / 20* 100
         
         # Set duty cycle for PWM signal
         print("DUTY CYCLE: " + str(duty_cycle))
