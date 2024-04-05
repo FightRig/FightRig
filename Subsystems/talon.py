@@ -30,8 +30,8 @@ class TalonSRX:
 
         # output_pulse_width_ms = max(min(output_pulse_width_ms, 2.4), 1.055)
 
-        if output_pulse_width_ms == 2.9:
-            output_pulse_width_ms = 0
+        # if output_pulse_width_ms == 2.9:
+        #     output_pulse_width_ms = 0
         
         # Convert pulse width to duty cycle
         # Determine target duty cycle
