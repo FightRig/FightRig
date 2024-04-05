@@ -24,6 +24,7 @@ class TalonSRX:
         duty_cycle = pulse_width_ms / 20 * 100
         
         # Set duty cycle for PWM signal
+        print("DUTY CYCLE: " + str(duty_cycle))
         self.pwm.ChangeDutyCycle(duty_cycle)
 
 if __name__ == "__main__":
@@ -42,7 +43,7 @@ if __name__ == "__main__":
         time.sleep(2)  # Wait for 2 seconds
 
         # Set PWM pulse width to 2 ms (maximum throttle)
-        talon_srx.set_pwm_pulse(2)
+        talon_srx.set_pwm_pulse(1.9)
 
         time.sleep(2)  # Wait for 2 seconds
 
