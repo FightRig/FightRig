@@ -36,9 +36,7 @@ class TalonSRX:
 
         output_pulse_width_ms = abs(pulse_width_ms)
 
-
-        # Ensure pulse width is within the range of 1-2 ms
-        output_pulse_width_ms = max(min(output_pulse_width_ms, 2.4), 1.055)
+        # output_pulse_width_ms = max(min(output_pulse_width_ms, 2.4), 1.055)
 
         if output_pulse_width_ms == 2.4:
             output_pulse_width_ms = 0
@@ -69,6 +67,14 @@ if __name__ == "__main__":
 
     talon = TalonSRX(3, 4)
     controller = Controller()
+
+    talon.set_pwm_pulse(2.4)
+    time.sleep(2)
+    talon.set_pwm_pulse(.6)
+    time.sleep(2)
+    talon.set_pwm_pulse(5)
+    time.sleep(2)
+
 
     try:
         while True:
