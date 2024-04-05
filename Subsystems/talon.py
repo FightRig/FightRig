@@ -24,17 +24,17 @@ class TalonSRX:
 
 
         if pulse_width_ms > 0:
-            GPIO.output(self.pwm_high, GPIO.HIGH)
-            GPIO.output(self.pwm_low, GPIO.LOW)
+            GPIO.output(self.pwm_high_pin, GPIO.HIGH)
+            GPIO.output(self.pwm_low_pin, GPIO.LOW)
         elif pulse_width_ms < 0:
-            GPIO.output(self.pwm_high, GPIO.LOW)
-            GPIO.output(self.pwm_low, GPIO.HIGH)
+            GPIO.output(self.pwm_high_pin, GPIO.LOW)
+            GPIO.output(self.pwm_low_pin, GPIO.HIGH)
         else:
-            GPIO.output(self.pwm_high, GPIO.LOW)
-            GPIO.output(self.pwm_low, GPIO.LOW)
+            GPIO.output(self.pwm_high_pin, GPIO.LOW)
+            GPIO.output(self.pwm_low_pin, GPIO.LOW)
 
 
-
+        pulse_width_ms = abs(pulse_width_ms)
 
 
         # Ensure pulse width is within the range of 1-2 ms
@@ -49,7 +49,6 @@ class TalonSRX:
         # Set duty cycle for PWM signal
         print("DUTY CYCLE: " + str(duty_cycle))
         self.pwm_high.ChangeDutyCycle(duty_cycle)
-        self.pwm_low.ChangeDutyCycle(100 - duty_cycle)
 
 if __name__ == "__main__":
     from baseinputs import Controller
