@@ -66,7 +66,7 @@ if __name__ == "__main__":
                 break
             
 
-            triggervalue = values["RightTrigger"]
+            triggervalue = values["sx"]
             print("TRIGGER: " + str(triggervalue))
 
             movement = 2.4 - (abs(triggervalue) * 1.34)
