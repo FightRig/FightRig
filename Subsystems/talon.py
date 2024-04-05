@@ -3,18 +3,22 @@ import time
 
 class TalonSRX:
     """INSTANCE OF TALON SRX MOTOR CONTROLLER"""
-    def __init__(self, pwm_pin):
-        self.pwm_pin = pwm_pin
+    def __init__(self, pwm_high_pin, pwm_low_pin):
+        self.pwm_high_pin = pwm_high_pin
+        self.pwm_low_pin = pwm_low_pin
 
         # Set GPIO mode to BCM
         GPIO.setmode(GPIO.BCM)
 
-        # Set up GPIO pin for PWM output
-        GPIO.setup(self.pwm_pin, GPIO.OUT)
+        # Set up GPIO pins for PWM output
+        GPIO.setup(self.pwm_high_pin, GPIO.OUT)
+        GPIO.setup(self.pwm_low_pin, GPIO.OUT)
 
         # Initialize PWM with a frequency of 100 Hz (period of 10 ms)
-        self.pwm = GPIO.PWM(self.pwm_pin, 100)
-        self.pwm.start(0)  # Start PWM with 0% duty cycle
+        self.pwm_high = GPIO.PWM(self.pwm_high_pin, 100)
+        self.pwm_low = GPIO.PWM(self.pwm_low_pin, 100)
+        self.pwm_high.start(0)  # Start PWM with 0% duty cycle
+        self.pwm_low.start(0)   # Start PWM with 0% duty cycle
 
     def set_pwm_pulse(self, pulse_width_ms):
         # Ensure pulse width is within the range of 1-2 ms
@@ -28,13 +32,14 @@ class TalonSRX:
         
         # Set duty cycle for PWM signal
         print("DUTY CYCLE: " + str(duty_cycle))
-        self.pwm.ChangeDutyCycle(duty_cycle)
+        self.pwm_high.ChangeDutyCycle(duty_cycle)
+        self.pwm_low.ChangeDutyCycle(100 - duty_cycle)
 
 if __name__ == "__main__":
     from baseinputs import Controller
 
 
-    talon = TalonSRX(3)
+    talon = TalonSRX(3, 4)
     controller = Controller()
 
     try:
