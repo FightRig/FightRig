@@ -47,10 +47,10 @@ if __name__ == "__main__":
 
         time.sleep(2)  # Wait for 2 seconds
 
-        talon_srx.set_pwm_pulse(1.99)
+        talon_srx.set_pwm_pulse(1.999)
         time.sleep(2)
 
-        talon_srx.set_pwm_pulse(1.01)
+        talon_srx.set_pwm_pulse(1.1)
         time.sleep(2)
 
     finally:
