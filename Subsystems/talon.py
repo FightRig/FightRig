@@ -20,12 +20,15 @@ class TalonSRX:
         # Ensure pulse width is within the range of 1-2 ms
         pulse_width_ms = max(min(pulse_width_ms, 2), 1)
         
+        # Calculate the period corresponding to the PWM frequency (1 / frequency)
+        period_ms = 1 / 15.625  # period in milliseconds
+        
         # Convert pulse width to duty cycle
-        duty_cycle = pulse_width_ms / 20 * 100
+        duty_cycle = (pulse_width_ms / period_ms) * 100
         
         # Set duty cycle for PWM signal
-        print("DUTY CYCLE: " + str(duty_cycle))
         self.pwm.ChangeDutyCycle(duty_cycle)
+        print("DUTY CYCLE: " + str(duty_cycle))
 
 if __name__ == "__main__":
     try:
