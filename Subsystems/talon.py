@@ -49,10 +49,19 @@ class TalonSRX:
         # Set duty cycle for PWM signal
         print("DUTY CYCLE: " + str(duty_cycle))
 
-        if pulse_width_ms >= 0:
-            self.pwm_high.ChangeDutyCycle(duty_cycle)
+
+        self.pwm_high.ChangeDutyCycle(duty_cycle)
+        self.pwm_low.ChangeDutyCycle(100 - duty_cycle)
+
+        if pulse_width_ms > 0:
+            GPIO.output(self.pwm_high_pin, GPIO.HIGH)
+            GPIO.output(self.pwm_low_pin, GPIO.LOW)
+        elif pulse_width_ms < 0:
+            GPIO.output(self.pwm_high_pin, GPIO.LOW)
+            GPIO.output(self.pwm_low_pin, GPIO.HIGH)
         else:
-            self.pwm_low.ChangeDutyCycle(duty_cycle)
+            GPIO.output(self.pwm_high_pin, GPIO.LOW)
+            GPIO.output(self.pwm_low_pin, GPIO.LOW)
 
 if __name__ == "__main__":
     from baseinputs import Controller
