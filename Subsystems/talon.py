@@ -42,7 +42,7 @@ if __name__ == "__main__":
                 print("GPIO Clean up")
                 break
 
-            movement = 1 + (values["RightTrigger"] * 2)
+            movement = 2 - (values["RightTrigger"] * 1)
             print(movement)
             talon.set_pwm_pulse(movement)
             time.sleep(0.1)  # Sleep to avoid continuous updates (adjust as needed)
