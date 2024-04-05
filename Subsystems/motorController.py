@@ -11,8 +11,8 @@ class SPX:
         GPIO.setup(self.pwm_high_pin, GPIO.OUT)
         GPIO.setup(self.pwm_low_pin, GPIO.OUT)
 
-        self.pwm_high = GPIO.PWM(self.pwm_high_pin, 50)  # 1000 Hz frequency
-        self.pwm_low = GPIO.PWM(self.pwm_low_pin, 50)    # 1000 Hz frequency
+        self.pwm_high = GPIO.PWM(self.pwm_high_pin, 1000)  # 1000 Hz frequency
+        self.pwm_low = GPIO.PWM(self.pwm_low_pin, 1000)    # 1000 Hz frequency
 
         self.pwm_high.start(0)  # Start PWM with 0% duty cycle
         self.pwm_low.start(0)   # Start PWM with 0% duty cycle
